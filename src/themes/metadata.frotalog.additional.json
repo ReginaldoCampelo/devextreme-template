@@ -1,0 +1,10 @@
+{
+    "items": [],
+    "baseTheme": "material.teal.dark",
+    "assetsBasePath": "../../../node_modules/devextreme/dist/css/",
+    "outputColorScheme": "frotalog-dark",
+    "makeSwatch": true,
+    "version": "21.2.7",
+    "widgets": [],
+    "removeExternalResources": true
+}

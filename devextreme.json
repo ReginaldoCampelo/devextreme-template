@@ -1,0 +1,92 @@
+{
+  "applicationEngine": "angular",
+  "build": {
+    "commands": [
+      {
+        "command": "build-theme",
+        "options": {
+          "inputFile": "src/themes/metadata.base.json",
+          "outputFile": "src/themes/generated/theme.base.css"
+        }
+      },      {
+        "command": "build-theme",
+        "options": {
+          "inputFile": "src/themes/metadata.additional.json",
+          "outputFile": "src/themes/generated/theme.additional.css"
+        }
+      },
+
+      {
+        "command": "export-theme-vars",
+        "options": {
+          "inputFile": "src/themes/metadata.base.json",
+          "outputFile": "src/themes/generated/variables.base.scss"
+        }
+      },
+      {
+        "command": "export-theme-vars",
+        "options": {
+          "inputFile": "src/themes/metadata.additional.json",
+          "outputFile": "src/themes/generated/variables.additional.scss"
+        }
+      },
+
+      {
+        "command": "build-theme",
+        "options": {
+          "inputFile": "src/themes/metadata.goawake.base.json",
+          "outputFile": "src/themes/generated/theme.goawake.base.css"
+        }
+      },      {
+        "command": "build-theme",
+        "options": {
+          "inputFile": "src/themes/metadata.goawake.additional.json",
+          "outputFile": "src/themes/generated/theme.goawake.additional.css"
+        }
+      },
+      {
+        "command": "export-theme-vars",
+        "options": {
+          "inputFile": "src/themes/metadata.goawake.base.json",
+          "outputFile": "src/themes/generated/variables.goawake.base.scss"
+        }
+      },
+      {
+        "command": "export-theme-vars",
+        "options": {
+          "inputFile": "src/themes/metadata.additional.goawake.json",
+          "outputFile": "src/themes/generated/variables.goawake.additional.scss"
+        }
+      },
+
+      {
+        "command": "build-theme",
+        "options": {
+          "inputFile": "src/themes/metadata.frotalog.base.json",
+          "outputFile": "src/themes/generated/theme.frotalog.base.css"
+        }
+      },      {
+        "command": "build-theme",
+        "options": {
+          "inputFile": "src/themes/metadata..frotalog.additional.json",
+          "outputFile": "src/themes/generated/theme.frotalog.additional.css"
+        }
+      },
+      {
+        "command": "export-theme-vars",
+        "options": {
+          "inputFile": "src/themes/metadata.frotalog.base.json",
+          "outputFile": "src/themes/generated/variables.frotalog.base.scss"
+        }
+      },
+      {
+        "command": "export-theme-vars",
+        "options": {
+          "inputFile": "src/themes/metadata.additional.frotalog.json",
+          "outputFile": "src/themes/generated/variables.frotalog.additional.scss"
+        }
+      }
+
+    ]
+  }
+}
