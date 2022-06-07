@@ -15,6 +15,14 @@ export const navigation = [
       {
         text: 'Tasks',
         path: '/tasks'
+      },
+      {
+        text: 'Crud',
+        path: '/crud'
+      },
+      {
+        text: 'New User',
+        path: 'new-user'
       }
     ]
   }

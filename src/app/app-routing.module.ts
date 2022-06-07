@@ -6,8 +6,20 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
+import { CrudComponent } from './pages/crud/crud.component';
+import { NewUserComponent } from './pages/new-user/new-user.component';
 
 const routes: Routes = [
+  {
+    path: 'new-user',
+    component: NewUserComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'crud',
+    component: CrudComponent,
+    canActivate: [AuthGuardService]
+  },
   {
     path: 'tasks',
     component: TasksComponent,
