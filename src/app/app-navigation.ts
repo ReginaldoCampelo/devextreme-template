@@ -22,7 +22,7 @@ export const navigation = [
       },
       {
         text: 'New User',
-        path: 'new-user'
+        path: '/new-user'
       }
     ]
   }

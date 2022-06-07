@@ -1,0 +1,91 @@
+<div id="user-page">
+    <dx-responsive-box singleColumnScreen="sm" class="content-block">
+      <dxi-row [ratio]="1"></dxi-row>
+      <dxi-row [ratio]="1"></dxi-row>
+      <dxi-row [ratio]="1"></dxi-row>
+      <dxi-row [ratio]="1"></dxi-row>
+  
+      <dxi-col [ratio]="1"></dxi-col>
+      <dxi-col [ratio]="5"></dxi-col>
+      <dxi-col [ratio]="1"></dxi-col>
+  
+      <!-- grid container -->
+      <dxi-item class="box-row">
+        <dxi-location [row]="1" [col]="1"></dxi-location>
+        <dx-responsive-box singleColumnScreen="xs sm">
+          <dxi-row [ratio]="1"></dxi-row>
+          <dxi-col [ratio]="1" [baseSize]="150"></dxi-col>
+  
+          <!-- column settings -->
+          <dxi-item class="box-item">
+            <dxi-location [row]="0" [col]="0"></dxi-location>
+            <dx-data-grid
+              id="gridContainer"
+              [dataSource]="dataSource"
+              keyExpr="id"
+              [columns]="['name', 'email', 'login', 'lastLogin', 'isActive']"
+              [showBorders]="true"
+              [focusedRowEnabled]="false"
+              [hoverStateEnabled]="true"
+            >
+              <dxo-scrolling rowRenderingMode="virtual"></dxo-scrolling>
+  
+              <!-- pagination -->
+              <dxo-paging [pageSize]="10"></dxo-paging>
+              <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="[5, 10, 20, 50, 100]"
+                [showPageSizeSelector]="true"
+                [showInfo]="true"
+                [showNavigationButtons]="true"
+              >
+              </dxo-pager>
+  
+              <!-- editing -->
+              <dxo-editing
+                mode="cell"
+                [allowUpdating]="true"
+                [allowAdding]="true"
+                [allowDeleting]="true"
+              >
+              </dxo-editing>
+  
+              <!--search && filter -->
+              <dxo-search-panel
+                [visible]="true"
+                [width]="240"
+                placeholder="Search..."
+              >
+              </dxo-search-panel>
+              <dxo-filter-row [visible]="true" [applyFilter]="true">
+              </dxo-filter-row>
+            </dx-data-grid>
+          </dxi-item>
+        </dx-responsive-box>
+      </dxi-item>
+
+      
+      <dxi-item>
+        <dxi-location [row]="3" [col]="1"></dxi-location>
+      <div class="options">
+        <div class="caption">Options</div>
+        <div class="option">
+          <span>Refresh Mode:</span>
+          <dx-select-box [(value)]="refreshMode" [items]="refreshModes">
+          </dx-select-box>
+        </div>
+        <div id="requests">
+          <div>
+            <div class="caption">Network Requests</div>
+            <dx-button id="clear" text="Clear" (onClick)="clearRequests()">
+            </dx-button>
+          </div>
+          <ul>
+            <li *ngFor="let request of requests">{{ request }}</li>
+          </ul>
+        </div>
+      </div>
+    </dxi-item>
+    </dx-responsive-box>
+  </div>
+  
