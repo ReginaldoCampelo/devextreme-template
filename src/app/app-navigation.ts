@@ -23,6 +23,10 @@ export const navigation = [
       {
         text: 'New User',
         path: '/new-user'
+      },
+      {
+        text: 'New Customer',
+        path: '/new-customer'
       }
     ]
   }

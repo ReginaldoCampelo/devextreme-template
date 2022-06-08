@@ -35,6 +35,8 @@ import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { NewUserComponent } from './pages/new-user/new-user.component';
+import { NewCustomerComponent } from './pages/new-customer/new-customer.component';
+import { OrderComponent } from './pages/order/order.component';
 
 
 const ANGULAR_IMPORTS = [
@@ -73,7 +75,9 @@ const DEV_EXTREME_IMPORTS = [
   declarations: [
     AppComponent,
     CrudComponent,
-    NewUserComponent
+    NewUserComponent,
+    NewCustomerComponent,
+    OrderComponent
   ],
   imports: [
     DEV_EXTREME_IMPORTS,

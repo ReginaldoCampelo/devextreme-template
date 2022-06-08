@@ -8,8 +8,14 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { CrudComponent } from './pages/crud/crud.component';
 import { NewUserComponent } from './pages/new-user/new-user.component';
+import { NewCustomerComponent } from './pages/new-customer/new-customer.component';
 
 const routes: Routes = [
+  {
+    path: 'new-customer',
+    component: NewCustomerComponent,
+    canActivate: [AuthGuardService]
+  },
   {
     path: 'new-user',
     component: NewUserComponent,

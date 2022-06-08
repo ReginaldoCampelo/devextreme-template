@@ -1,23 +1,16 @@
-import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import CustomStore from 'devextreme/data/custom_store';
 import { formatDate } from 'devextreme/localization';
-import { User } from './shared/models/user';
 
 const URL = 'http://localhost:8080/api';
 
-@Component({
-  selector: 'app-new-user',
-  templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.scss']
+@Injectable({
+  providedIn: 'root'
 })
-export class NewUserComponent {
+export class CustomerService {
 
   dataSource: any;
-
-  user: User[] = [];
 
   refreshModes: string[];
 
@@ -31,45 +24,25 @@ export class NewUserComponent {
 
     this.dataSource = new CustomStore({
       key: 'id',
-      load: () => this.sendRequest(`${URL}/user/find/all`),
-      insert: (values) => this.sendRequest(`${URL}/user/insert`, 'POST', {
+      load: () => this.sendRequest(`${URL}/customer/find/all`),
+      insert: (values) => this.sendRequest(`${URL}/customer/insert`, 'POST', {
         values: JSON.stringify(values),
       }),
-      update: (key, values) => this.sendRequest(`${URL}/user/update`, 'PUT', {
+      update: (key, values) => this.sendRequest(`${URL}/customer/update`, 'PUT', {
         key,
         values: JSON.stringify(values),
       }),
-      remove: (key) => this.sendRequest(`${URL}/user/delete`, 'DELETE', {
+      remove: (key) => this.sendRequest(`${URL}/customer/delete`, 'DELETE', {
         key,
       }),
     });
-
-//    this.customersData = {
-//      paginate: true,
-//      store: new CustomStore({
-//        key: 'Value',
-//        loadMode: 'raw',
-//        load: () => this.sendRequest(`${URL}/CustomersLookup`),
-//      }),
-//    };
-
-//    this.shippersData = new CustomStore({
-//      key: 'Value',
-//      loadMode: 'raw',
-//      load: () => this.sendRequest(`${URL}/ShippersLookup`),
-//    });
   }
 
-   sendRequest(url: string, method = 'GET', data: any = {}): any {
+  sendRequest(url: string, method = 'GET', data: any = {}): any {
     this.logRequest(method, url, data);
 
     const httpParams = new HttpParams({ fromObject: data });
-    const httpOptions = { body: httpParams, headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    }) };
+    const httpOptions = { withCredentials: true, body: httpParams };
     let result;
 
     switch (method) {
@@ -106,4 +79,6 @@ export class NewUserComponent {
   clearRequests() {
     this.requests = [];
   }
+
+
 }

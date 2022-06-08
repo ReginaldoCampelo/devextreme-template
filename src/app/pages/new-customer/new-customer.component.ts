@@ -1,23 +1,21 @@
-import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
-
+import { Component, OnInit } from '@angular/core';
 import CustomStore from 'devextreme/data/custom_store';
-import { formatDate } from 'devextreme/localization';
-import { User } from './shared/models/user';
 
-const URL = 'http://localhost:8080/api';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { formatDate } from 'devextreme/localization';
+import { Customer } from './shared/models/customer';
+
+// const URL = 'http://localhost:8080/api';
+ const URL = 'http://localhost:3000';
 
 @Component({
-  selector: 'app-new-user',
-  templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.scss']
+  selector: 'app-new-customer',
+  templateUrl: './new-customer.component.html',
+  styleUrls: ['./new-customer.component.scss']
 })
-export class NewUserComponent {
+export class NewCustomerComponent {
 
   dataSource: any;
-
-  user: User[] = [];
 
   refreshModes: string[];
 
@@ -30,37 +28,22 @@ export class NewUserComponent {
     this.refreshModes = ['full', 'reshape', 'repaint'];
 
     this.dataSource = new CustomStore({
-      key: 'id',
-      load: () => this.sendRequest(`${URL}/user/find/all`),
-      insert: (values) => this.sendRequest(`${URL}/user/insert`, 'POST', {
-        values: JSON.stringify(values),
+      key: 'OrderID',
+      load: () => this.sendRequest(`${URL}/customer`),
+      insert: (values) => this.sendRequest(`${URL}/customer`, 'POST', {
+        values: JSON.stringify(values), 
       }),
-      update: (key, values) => this.sendRequest(`${URL}/user/update`, 'PUT', {
+      update: (key, values) => this.sendRequest(`${URL}/customer`, 'PUT', {
         key,
         values: JSON.stringify(values),
       }),
-      remove: (key) => this.sendRequest(`${URL}/user/delete`, 'DELETE', {
+      remove: (key) => this.sendRequest(`${URL}/customer`, 'DELETE', {
         key,
       }),
     });
-
-//    this.customersData = {
-//      paginate: true,
-//      store: new CustomStore({
-//        key: 'Value',
-//        loadMode: 'raw',
-//        load: () => this.sendRequest(`${URL}/CustomersLookup`),
-//      }),
-//    };
-
-//    this.shippersData = new CustomStore({
-//      key: 'Value',
-//      loadMode: 'raw',
-//      load: () => this.sendRequest(`${URL}/ShippersLookup`),
-//    });
   }
 
-   sendRequest(url: string, method = 'GET', data: any = {}): any {
+  sendRequest(url: string, method = 'GET', data: any = {}): any {
     this.logRequest(method, url, data);
 
     const httpParams = new HttpParams({ fromObject: data });
