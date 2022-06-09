@@ -1,22 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { environment } from 'src/environments/environment';
 import { Change } from '../order/shared/models/change';
 import { Product } from './shared/models/product';
-import { ProductService } from './shared/services/product.service';
 
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
   styleUrls: ['./new-product.component.scss'],
-  providers: [ProductService]
 })
 export class NewProductComponent implements OnInit, OnDestroy {
+
 
   productDataSource: any;
 
   productsSubscription: Subscription;
 
-  products$: Observable<Product[]>;
+  products: any;
+
+  products$ = new Observable<Product[]>();
 
   changes: Change<Product>[] = [];
 
@@ -26,7 +29,7 @@ export class NewProductComponent implements OnInit, OnDestroy {
 
   loadPanelPosition = { of: '#gridContainer' };
 
-  constructor(private productService: ProductService) {
+  constructor(private apiService: ApiService,) {
     
     this.productDataSource = {
       store: {
@@ -43,10 +46,9 @@ export class NewProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.products$ = this.productService.getProducts();
-
     this.isLoading = true;
-    this.productsSubscription = this.products$.subscribe(() => {
+    this.getProducts().subscribe((res) => {
+      this.products = res;
       this.isLoading = false;
     });
   }
@@ -71,16 +73,20 @@ export class NewProductComponent implements OnInit, OnDestroy {
   async processSaving(change: Change<Product>) {
     this.isLoading = true;
 
-    try {
-      await this.productService.saveChange(change);
-      this.editRowKey = null;
-      this.changes = [];
-    } finally {
-      this.isLoading = false;
-    }
+    // try {
+    //   await this.apiService.post(change);
+    //   this.editRowKey = null;
+    //   this.changes = [];
+    // } finally {
+    //   this.isLoading = false;
+    // }
   }
 
   ngOnDestroy(): void {
     this.productsSubscription.unsubscribe();
+  }
+
+  getProducts(): Observable<Product[]>{
+    return this.apiService.get<any>(`${environment.apiUrl}product/find/all`)
   }
 }
