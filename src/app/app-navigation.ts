@@ -27,6 +27,14 @@ export const navigation = [
       {
         text: 'New Customer',
         path: '/new-customer'
+      },
+      {
+        text: 'Order',
+        path: '/order'
+      },
+      {
+        text: 'Product',
+        path: '/product'
       }
     ]
   }

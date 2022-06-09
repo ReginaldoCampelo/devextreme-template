@@ -9,8 +9,20 @@ import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { CrudComponent } from './pages/crud/crud.component';
 import { NewUserComponent } from './pages/new-user/new-user.component';
 import { NewCustomerComponent } from './pages/new-customer/new-customer.component';
+import { OrderComponent } from './pages/order/order.component';
+import { NewProductComponent } from './pages/new-product/new-product.component';
 
 const routes: Routes = [
+  {
+    path: 'product',
+    component: NewProductComponent,
+    canActivate: [AuthGuardService]
+  },
+  { 
+    path: 'order',
+    component: OrderComponent,
+    canActivate: [AuthGuardService]
+  },
   {
     path: 'new-customer',
     component: NewCustomerComponent,

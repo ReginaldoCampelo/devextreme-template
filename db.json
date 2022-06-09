@@ -14,9 +14,9 @@
   "user": [
     {
       "id": 1,
-      "email": "Teste 5",
-      "name": "teste@teste5.com",
-      "login": "lilica",
+      "email": "reginaldo.campelo@codescript.com",
+      "name": "Reginaldo Campelo",
+      "login": "Reginaldo",
       "cryptPassword": "$2a$10$NKb20YiPs.hmYqWjU8oEGejHfN/slcdCozBmME1tZ4rKANtqSxIaC",
       "isActive": true
     }

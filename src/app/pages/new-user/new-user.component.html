@@ -21,9 +21,9 @@
             <dxi-location [row]="0" [col]="0"></dxi-location>
             <dx-data-grid
               id="gridContainer"
-              [dataSource]="dataSource"
+              [dataSource]="users$ | async"
               keyExpr="id"
-              [columns]="['name', 'email', 'login', 'lastLogin', 'isActive']"
+              [columns]="['id', 'name', 'email', 'login', 'lastLogin', 'isActive']"
               [showBorders]="true"
               [focusedRowEnabled]="false"
               [hoverStateEnabled]="true"
@@ -47,6 +47,8 @@
                 [allowUpdating]="true"
                 [allowAdding]="true"
                 [allowDeleting]="true"
+                [(changes)]="changes"
+                [(editRowKey)]="editRowKey"
               >
               </dxo-editing>
   

@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // devextreme imports
-import { DxButtonModule } from 'devextreme-angular';
+import { DxButtonModule, DxLoadPanelModule } from 'devextreme-angular';
 import { DxLookupModule } from 'devextreme-angular';
 import { DxTemplateModule } from 'devextreme-angular';
 import { DxSpeedDialActionModule } from 'devextreme-angular';
@@ -37,6 +37,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NewUserComponent } from './pages/new-user/new-user.component';
 import { NewCustomerComponent } from './pages/new-customer/new-customer.component';
 import { OrderComponent } from './pages/order/order.component';
+import { NewProductComponent } from './pages/new-product/new-product.component';
 
 
 const ANGULAR_IMPORTS = [
@@ -68,7 +69,8 @@ const DEV_EXTREME_IMPORTS = [
   DxSpeedDialActionModule,
   DxDataGridModule,
   DxTemplateModule,
-  DxLookupModule
+  DxLookupModule,
+  DxLoadPanelModule
 ];
 
 @NgModule({
@@ -77,7 +79,8 @@ const DEV_EXTREME_IMPORTS = [
     CrudComponent,
     NewUserComponent,
     NewCustomerComponent,
-    OrderComponent
+    OrderComponent,
+    NewProductComponent
   ],
   imports: [
     DEV_EXTREME_IMPORTS,
