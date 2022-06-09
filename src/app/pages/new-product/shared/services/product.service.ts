@@ -1,25 +1,54 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import applyChanges from 'devextreme/data/apply_changes';
+import CustomStore from 'devextreme/data/custom_store';
+
+import { BaseService } from 'src/app/shared/services/base.service';
 import { Change } from 'src/app/pages/order/shared/models/change';
 import { Product } from '../models/product';
-import applyChanges from 'devextreme/data/apply_changes';
-
-class Response<T> {
-  data: T[];
-}
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService extends BaseService {
 
   private products$ = new BehaviorSubject<Product[]>([]);
 
   private url = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    super();
+   }
+
+  getProducts(): CustomStore {
+    return new CustomStore({
+      key: 'id',
+      load: () => {
+        return this.http.get(
+          `${environment.baseUrl}/product/find/all`, this.SetHeaderJson())
+          .toPromise()
+          .catch(() => { throw 'Data loading error' });
+      }
+    });
+  }
+
+  /* deprecated didn't work :(
+  getProducts(): Observable<Product[]> {
+    this.http.get(`${this.url}/product/find/all`, { headers: new HttpHeaders({
+      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }) }).toPromise().then((data: Response<Product>) => {
+      this.products$.next(data.data);
+    });
+
+    return this.products$.asObservable();
+  }
+  */
 
   updateProducts(change: Change<Product>, data: Product) {
     change.data = data;
@@ -27,31 +56,11 @@ export class ProductService {
     this.products$.next(products);
   }
 
-  getProducts(): Observable<Product[]> {
-    this.http.get(`${this.url}/product/find/all`, { headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    }) }).toPromise().then((data: Response<Product[]>) => {
-      let products = {data: data};
-
-      console.log(products);
-      this.products$.next(products.data);
-    });
-
-    return this.products$.asObservable();
-  }
-
   async insert(change: Change<Product>): Promise<Product> {
     const httpParams = new HttpParams({ fromObject: { values: JSON.stringify(change.data) } });
-    const httpOptions = { body: httpParams, headers: new HttpHeaders({
-            "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }) };
-    const data = await this.http.post<Product>(`${this.url}/product/insert`, httpParams, httpOptions).toPromise();
+    const httpOptions = {
+      body: httpParams, headers: this.SetHeaderJson()};
+    const data = await this.http.post<Product>(`${this.url}/product/insert`, httpParams).toPromise();
 
     this.updateProducts(change, data);
 
@@ -60,13 +69,9 @@ export class ProductService {
 
   async update(change: Change<Product>): Promise<Product> {
     const httpParams = new HttpParams({ fromObject: { key: change.key, values: JSON.stringify(change.data) } });
-    const httpOptions = { body: httpParams, headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    }) };
-    const data = await this.http.put<Product>(`${this.url}/product/update`, httpParams, httpOptions).toPromise();
+    const httpOptions = {
+      body: httpParams, headers: this.SetHeaderJson()};
+    const data = await this.http.put<Product>(`${this.url}/product/update`, httpParams).toPromise();
 
     this.updateProducts(change, data);
 
@@ -75,13 +80,9 @@ export class ProductService {
 
   async remove(change: Change<Product>): Promise<Product> {
     const httpParams = new HttpParams({ fromObject: { key: change.key } });
-    const httpOptions = { body: httpParams, headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    }) };
-    const data = await this.http.delete<Product>(`${this.url}/delete`, httpOptions).toPromise();
+    const httpOptions = {
+      body: httpParams, headers: this.SetHeaderJson()};
+    const data = await this.http.delete<Product>(`${this.url}/delete`).toPromise();
 
     this.updateProducts(change, data);
 

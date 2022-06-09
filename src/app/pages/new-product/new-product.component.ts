@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import CustomStore from 'devextreme/data/custom_store';
 import { Observable, Subscription } from 'rxjs';
 import { Change } from '../order/shared/models/change';
 import { Product } from './shared/models/product';
@@ -10,13 +12,7 @@ import { ProductService } from './shared/services/product.service';
   styleUrls: ['./new-product.component.scss'],
   providers: [ProductService]
 })
-export class NewProductComponent implements OnInit, OnDestroy {
-
-  productDataSource: any;
-
-  productsSubscription: Subscription;
-
-  products$: Observable<Product[]>;
+export class NewProductComponent {
 
   changes: Change<Product>[] = [];
 
@@ -26,29 +22,10 @@ export class NewProductComponent implements OnInit, OnDestroy {
 
   loadPanelPosition = { of: '#gridContainer' };
 
+  dataSource: CustomStore;
+
   constructor(private productService: ProductService) {
-    
-    this.productDataSource = {
-      store: {
-        type: 'odata',
-        url: 'http://localhost:8080/api',
-        key: 'id'
-      },
-      select: [
-        'id',
-        'description',
-        'isActive'
-      ]
-    }
-  }
-
-  ngOnInit(): void {
-    this.products$ = this.productService.getProducts();
-
-    this.isLoading = true;
-    this.productsSubscription = this.products$.subscribe(() => {
-      this.isLoading = false;
-    });
+    this.dataSource = productService.getProducts();
   }
 
   get changesText(): string {
@@ -78,9 +55,5 @@ export class NewProductComponent implements OnInit, OnDestroy {
     } finally {
       this.isLoading = false;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.productsSubscription.unsubscribe();
   }
 }
