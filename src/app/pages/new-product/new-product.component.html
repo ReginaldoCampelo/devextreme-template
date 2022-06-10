@@ -1,5 +1,5 @@
-<dx-load-panel [position]="loadPanelPosition" [visible]="isLoading">
-</dx-load-panel>
+<dx-load-panel [position]="loadPanelPosition" [visible]="isLoading"></dx-load-panel>
+
 <dx-data-grid
   id="gridContainer"
   keyExpr="id"
@@ -9,6 +9,9 @@
   [repaintChangesOnly]="true"
   (onSaving)="onSaving($event)"
 >
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+
+  <!--Editing-->
   <dxo-editing
     mode="row"
     [allowAdding]="true"
@@ -18,23 +21,60 @@
     [(editRowKey)]="editRowKey"
   ></dxo-editing>
 
-  <dxi-column dataField="id" caption="ID" [allowEditing]="false" [width]="100" [allowEditing]="false" dataType="number"></dxi-column>
-  <dxi-column dataField="description" caption="Description" dataType="string"></dxi-column>
-  <dxi-column dataField="isActive" caption="Status" [width]="150" dataType="boolean"></dxi-column>
+  <dxi-column
+    dataField="id"
+    caption="ID"
+    [allowEditing]="false"
+    [width]="150"
+    [allowEditing]="false"
+    dataType="number"
+  >
+  </dxi-column>
+  <dxi-column
+    dataField="description"
+    caption="Description"
+    dataType="string"
+  ></dxi-column>
+  <dxi-column
+    dataField="isActive"
+    caption="Status"
+    [width]="290"
+    dataType="boolean"
+  ></dxi-column>
 
+  <!--Pagination-->
+  <dxo-paging [pageSize]="5"> </dxo-paging>
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="[5, 10, 15, 20]"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true"
+  >
+  </dxo-pager>
+
+  <dxo-selection mode="multiple"></dxo-selection>
+  <!--Search & Filtering-->
+  <dxo-search-panel
+    [visible]="true"
+    [width]="240"
+    placeholder="Pesquisar..."
+  ></dxo-search-panel>
+  <dxo-filter-row [visible]="true" [applyFilter]="true"></dxo-filter-row>
 </dx-data-grid>
 
-
+<!--
 <div class="options">
   <div class="caption">Options</div>
   <div class="option">
     <span>Edit Row Key:</span>
-    <div id="editRowKey">{{
-      editRowKey === null ? "null" : editRowKey.toString()
-    }}</div>
+    <div id="editRowKey">
+      {{ editRowKey === null ? "null" : editRowKey.toString() }}
+    </div>
   </div>
   <div class="option">
     <span>Changes:</span>
     <div id="changes">{{ changesText }}</div>
   </div>
 </div>
+-->
