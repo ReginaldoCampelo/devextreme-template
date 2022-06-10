@@ -9,7 +9,7 @@ export abstract class BaseService {
   protected SetHeaderJson() {
     return {
       headers: new HttpHeaders({
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDY4NjA3M30.1FigfUh595XoTg94t2XLFLejV6Lpg-x4mm5HbLyX_MWMhGQpBCXIxLUjsAQLRB8Lq0VMj23j940M11eiIpR6cQ",
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZTM2OSIsImV4cCI6MTY1NDkxNTAwNn0.icTwW2bQbwX8Iv3G5izer7Qll59kYDRuJZZiacXW8Tvo-kr5giyesiq4cRj1EKz8aXREMqYhsbnlBsrUSu8DTw",
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Access-Control-Allow-Origin": "*",

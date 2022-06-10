@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import applyChanges from 'devextreme/data/apply_changes';
-import CustomStore from 'devextreme/data/custom_store';
+import CustomStore, { ResolvedData } from 'devextreme/data/custom_store';
 
 import { BaseService } from 'src/app/shared/services/base.service';
 import { Change } from 'src/app/pages/order/shared/models/change';
@@ -23,17 +23,56 @@ export class ProductService extends BaseService {
     super();
    }
 
-  getProducts(): CustomStore {
+   productDataSource(): CustomStore {
     return new CustomStore({
       key: 'id',
       load: () => {
-        return this.http.get(
-          `${environment.baseUrl}/product/find/all`, this.SetHeaderJson())
-          .toPromise()
-          .catch(() => { throw 'Data loading error' });
+        return this.getProducts()
+      },
+      insert: (values) => {
+        return this.insertProduct(values)
+      },
+    //  remove: (key) => {
+    //    return this.removeProducts(key)
+    //  },
+      update: (key, values) => {
+        return this.updateProducts(key, values)
       }
     });
   }
+
+  getProducts(): Promise<ResolvedData<any>> {
+    return this.http.get(
+      `${environment.baseUrl}/product/find/all`, this.SetHeaderJson())
+      .toPromise()
+      .catch(() => { throw 'Data loading error' });
+  }
+
+  insertProduct(values): Promise<ResolvedData<any>> {
+    return this.http.post(`${environment.baseUrl}/product/insert`, JSON.stringify(values), this.SetHeaderJson())
+      .toPromise()
+      .catch(() => { throw 'Insertion failed' });
+  }
+
+  updateProducts(key, values): Promise<ResolvedData<any>> {
+    return this.http.put(`${environment.baseUrl}/product/update` + encodeURIComponent(key), JSON.stringify(values))
+      .toPromise()
+      .catch(() => { throw 'Update failed' });
+  }
+
+  removeProducts(key): Promise<ResolvedData<any>> {
+    return this.http.delete(`${environment.baseUrl}/product/delete` + encodeURIComponent(key))
+      .toPromise()
+      .catch(() => { throw 'Deletion failed' });
+  }
+
+  handleValues(values: string) {
+    values.replace("values:", "")
+
+    return values;
+  }
+
+
 
   /* deprecated didn't work :(
   getProducts(): Observable<Product[]> {
@@ -50,11 +89,13 @@ export class ProductService extends BaseService {
   }
   */
 
+  /*
   updateProducts(change: Change<Product>, data: Product) {
     change.data = data;
     const products = applyChanges(this.products$.getValue(), [change], { keyExpr: 'id' });
     this.products$.next(products);
   }
+  */
 
   async insert(change: Change<Product>): Promise<Product> {
     const httpParams = new HttpParams({ fromObject: { values: JSON.stringify(change.data) } });
@@ -77,6 +118,7 @@ export class ProductService extends BaseService {
 
     return data;
   }
+  
 
   async remove(change: Change<Product>): Promise<Product> {
     const httpParams = new HttpParams({ fromObject: { key: change.key } });
@@ -99,4 +141,5 @@ export class ProductService extends BaseService {
         return this.remove(change);
     }
   }
+  
 }

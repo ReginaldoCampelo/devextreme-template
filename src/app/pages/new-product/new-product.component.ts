@@ -25,7 +25,7 @@ export class NewProductComponent {
   dataSource: CustomStore;
 
   constructor(private productService: ProductService) {
-    this.dataSource = productService.getProducts();
+    this.dataSource = productService.productDataSource();
   }
 
   get changesText(): string {
