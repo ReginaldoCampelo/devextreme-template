@@ -6,14 +6,13 @@ import CustomStore, { ResolvedData } from 'devextreme/data/custom_store';
 import { environment } from 'src/environments/environment';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { Change } from 'src/app/pages/order/shared/models/change';
-
+import { ApiService } from './api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService extends BaseService {
-
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiService) {
     super();
   }
 
@@ -21,37 +20,47 @@ export class ProductService extends BaseService {
     return new CustomStore({
       key: 'id',
       load: () => {
-        return this.getProducts()
+        return this.getProducts();
       },
       insert: (values) => {
-        return this.insert(values)
+        return this.insert(values);
       },
       remove: (key) => {
-        return this.remove(key)
+        return this.remove(key);
       },
       update: (key, values) => {
-        return this.update(key, values)
-      }
+        return this.update(key, values);
+      },
     });
   }
 
   getProducts(): Promise<ResolvedData<any>> {
-    return this.http.get(
-      `${environment.baseUrl}/product/find/all`, this.SetHeaderJson())
+    return this.apiService
+      .get(`${environment.baseUrl}/product/find/all`)
       .toPromise()
-      .catch(() => { throw 'Data loading error' });
+      .catch(() => {
+        throw 'Data loading error';
+      });
   }
 
   async insert(data: any): Promise<any> {
-    return await this.http.post<any>(`${environment.baseUrl}/product/insert`, data).toPromise();
+    return await this.apiService.post(`${environment.baseUrl}/product/insert`, data)
+
+    // return await this.http
+    //   .post<any>(`${environment.baseUrl}/product/insert`, data)
+    //   .toPromise();
   }
 
   async update(id: any, data: any): Promise<any> {
-    return await this.http.put<any>(`${environment.baseUrl}/product/update/${id}`, data).toPromise();
+    // return await this.http
+    //   .put<any>(`${environment.baseUrl}/product/update/${id}`, data)
+    //   .toPromise();
   }
 
   async remove(id: any): Promise<any> {
-    return await this.http.delete<any>(`${environment.baseUrl}/delete/${id}`).toPromise();
+    // return await this.http
+    //   .delete<any>(`${environment.baseUrl}/delete/${id}`)
+    //   .toPromise();
   }
 
   async saveChange(change: Change<any>): Promise<any> {
@@ -64,5 +73,4 @@ export class ProductService extends BaseService {
         return this.remove(change.key);
     }
   }
-
 }

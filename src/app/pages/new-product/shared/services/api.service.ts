@@ -10,16 +10,8 @@ export class ApiService extends BaseService {
     super();
   }
 
-  public get<T>(url: string, params?: HttpParams) {
-    if (!params) {
-      params = new HttpParams();
-    }
-
-    let options = {
-      headers: this.SetHeaderJson(),
-      params: params,
-    };
-    return this.http.get<T>(url);
+  public get<T>(url: string) {
+    return this.http.get<T>(url, this.SetHeaderJson());
   }
 
   public post<T>(url: string, body?: any) {
