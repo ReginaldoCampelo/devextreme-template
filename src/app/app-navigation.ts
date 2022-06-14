@@ -35,6 +35,10 @@ export const navigation = [
       {
         text: 'Product',
         path: '/product'
+      },
+      {
+        text: 'Product v2',
+        path: '/product-v2'
       }
     ]
   }

@@ -1,9 +1,12 @@
-<dx-load-panel [position]="loadPanelPosition" [visible]="isLoading"></dx-load-panel>
+<dx-load-panel
+  [position]="loadPanelPosition"
+  [visible]="isLoading"
+></dx-load-panel>
 
 <dx-data-grid
   id="gridContainer"
   keyExpr="id"
-  [dataSource]="dataSource"
+  [dataSource]="products"
   [remoteOperations]="false"
   [showBorders]="true"
   [repaintChangesOnly]="true"
@@ -11,9 +14,9 @@
 >
   <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
 
-  <!--Editing-->
+  <!--Editing | possible modes: row | cell | batch | popup -->
   <dxo-editing
-    mode="cell"
+    mode="popup"
     [allowAdding]="true"
     [allowDeleting]="true"
     [allowUpdating]="true"
@@ -25,20 +28,22 @@
     dataField="id"
     caption="ID"
     [allowEditing]="false"
-    [width]="150"
+    [width]="100"
     [allowEditing]="false"
     dataType="number"
   >
   </dxi-column>
   <dxi-column
-    dataField="description"
-    caption="Description"
-    dataType="string"
-  ></dxi-column>
+  dataField="description"
+  caption="Description"
+  dataType="string"
+  >
+  </dxi-column>
+
   <dxi-column
     dataField="isActive"
     caption="Status"
-    [width]="290"
+    [width]="150"
     dataType="boolean"
   ></dxi-column>
 
@@ -63,7 +68,6 @@
   <dxo-filter-row [visible]="true" [applyFilter]="true"></dxo-filter-row>
 </dx-data-grid>
 
-<!--
 <div class="options">
   <div class="caption">Options</div>
   <div class="option">
@@ -77,4 +81,3 @@
     <div id="changes">{{ changesText }}</div>
   </div>
 </div>
--->

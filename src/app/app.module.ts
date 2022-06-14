@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // devextreme imports
-import { DxButtonModule, DxLoadPanelModule } from 'devextreme-angular';
+import { DxButtonModule, DxLoadPanelModule, DxPopupModule, DxValidationSummaryModule, DxValidatorModule } from 'devextreme-angular';
 import { DxLookupModule } from 'devextreme-angular';
 import { DxTemplateModule } from 'devextreme-angular';
 import { DxSpeedDialActionModule } from 'devextreme-angular';
@@ -38,6 +38,7 @@ import { NewUserComponent } from './pages/new-user/new-user.component';
 import { NewCustomerComponent } from './pages/new-customer/new-customer.component';
 import { OrderComponent } from './pages/order/order.component';
 import { NewProductComponent } from './pages/new-product/new-product.component';
+import { NewProductV2Component } from './pages/new-product-v2/new-product-v2.component';
 
 
 const ANGULAR_IMPORTS = [
@@ -70,7 +71,10 @@ const DEV_EXTREME_IMPORTS = [
   DxDataGridModule,
   DxTemplateModule,
   DxLookupModule,
-  DxLoadPanelModule
+  DxLoadPanelModule,
+  DxPopupModule ,
+  DxValidatorModule,
+  DxValidationSummaryModule
 ];
 
 @NgModule({
@@ -80,7 +84,8 @@ const DEV_EXTREME_IMPORTS = [
     NewUserComponent,
     NewCustomerComponent,
     OrderComponent,
-    NewProductComponent
+    NewProductComponent,
+    NewProductV2Component
   ],
   imports: [
     DEV_EXTREME_IMPORTS,

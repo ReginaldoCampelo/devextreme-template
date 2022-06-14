@@ -44,23 +44,15 @@ export class ProductService extends BaseService {
   }
 
   async insert(data: any): Promise<any> {
-    return await this.apiService.post(`${environment.baseUrl}/product/insert`, data)
-
-    // return await this.http
-    //   .post<any>(`${environment.baseUrl}/product/insert`, data)
-    //   .toPromise();
+    return await this.apiService.post(`${environment.baseUrl}/product/insert`, data);
   }
 
   async update(id: any, data: any): Promise<any> {
-    // return await this.http
-    //   .put<any>(`${environment.baseUrl}/product/update/${id}`, data)
-    //   .toPromise();
+    return await this.apiService.put(`${environment.baseUrl}/product/update/${id}`, data)
   }
 
   async remove(id: any): Promise<any> {
-    // return await this.http
-    //   .delete<any>(`${environment.baseUrl}/delete/${id}`)
-    //   .toPromise();
+    return await this.apiService.delete(`${environment.baseUrl}/product/delete/${id}`)
   }
 
   async saveChange(change: Change<any>): Promise<any> {

@@ -11,8 +11,14 @@ import { NewUserComponent } from './pages/new-user/new-user.component';
 import { NewCustomerComponent } from './pages/new-customer/new-customer.component';
 import { OrderComponent } from './pages/order/order.component';
 import { NewProductComponent } from './pages/new-product/new-product.component';
+import { NewProductV2Component } from './pages/new-product-v2/new-product-v2.component';
 
 const routes: Routes = [
+  {
+    path: 'product-v2',
+    component: NewProductV2Component,
+    canActivate: [AuthGuardService]
+  },
   {
     path: 'product',
     component: NewProductComponent,

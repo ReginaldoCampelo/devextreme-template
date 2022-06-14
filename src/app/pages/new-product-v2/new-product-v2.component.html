@@ -1,0 +1,120 @@
+<dx-data-grid
+  id="grid"
+  [dataSource]="products"
+  [showBorders]="true"
+  keyExpr="id"
+  (onSelectionChanged)="selectedChanged($event)"
+>
+  <dxo-selection mode="single"></dxo-selection>
+  <dxo-paging [enabled]="true"></dxo-paging>
+  <dxo-editing mode="popup">
+    <dxo-texts confirmDeleteMessage="Você tem certeza que deseja deletar o item?"></dxo-texts>
+  </dxo-editing>
+
+  <dxi-column
+  dataField="id"
+  caption="ID"
+  [allowEditing]="false"
+  [width]="150"
+  [allowEditing]="false"
+  dataType="number"
+  ></dxi-column>
+
+  <dxi-column
+    dataField="description"
+    caption="Description"
+    dataType="string"
+  ></dxi-column>
+  
+  <dxi-column
+    dataField="isActive"
+    caption="Status"
+    [width]="290"
+    dataType="boolean"
+  ></dxi-column>
+
+  <!--Pagination-->
+  <dxo-paging [pageSize]="5"> </dxo-paging>
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="[5, 10, 15, 20]"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true"
+  >
+  </dxo-pager>
+
+  
+  <!--Search & Filtering-->
+  <dxo-search-panel
+    [visible]="true"
+    [width]="240"
+    placeholder="Search..."
+  ></dxo-search-panel>
+  <dxo-filter-row [visible]="true" [applyFilter]="true"></dxo-filter-row>
+</dx-data-grid>
+
+<dx-speed-dial-action
+  icon="add"
+  label="Add row"
+  [index]="1"
+  (onClick)="addRow()"
+>
+</dx-speed-dial-action>
+<dx-speed-dial-action
+  icon="trash"
+  label="Delete row"
+  [index]="2"
+  [visible]="selectedRowIndex !== -1"
+  (onClick)="deleteRow()"
+>
+</dx-speed-dial-action>
+<dx-speed-dial-action
+  icon="edit"
+  label="Edit row"
+  [index]="3"
+  [visible]="selectedRowIndex !== -1"
+  (onClick)="editRow()"
+>
+</dx-speed-dial-action>
+
+<dx-popup
+    [dragEnabled]="true"
+    [(visible)]="isPopupVisible"
+    [closeOnOutsideClick]="true">
+    <dx-scroll-view
+    width="100%"
+    height="100%"
+    >
+      <div id="form-container">
+        <dx-form id="form" [colCount]="1" [formData]="productForm">
+          <dxi-item itemType="group" caption="Register Product">
+            <dxi-item
+            formControlName="description"
+            dataField="description"
+            dataType="string"
+            ></dxi-item>
+
+            <dxi-item>
+            <dx-check-box
+            formControlName="isActive"
+            text="Is Actived?"
+            [value]="null"></dx-check-box>
+            </dxi-item>
+
+            <dxi-item>
+                <dx-button
+                stylingMode="outlined"
+                text="Save"
+                type="default"
+                [width]="120"
+                (onClick)="insertProduct()"
+                ></dx-button>
+            </dxi-item>
+
+          </dxi-item>
+        </dx-form>
+      </div>
+    </dx-scroll-view>
+</dx-popup>
+
