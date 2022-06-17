@@ -1,0 +1,54 @@
+<div>
+  <form novalidate [formGroup]="productForm">
+    <div *ngFor="let item of objectKeys(typeForm)">
+      <div class="dx-fieldset">
+        <div *ngIf="typeForm[item] == 'text'">
+          <!-- description field -->
+          <div class="dx-field">
+            <div class="dx-field-label">Description</div>
+            <div class="dx-field-value-static">
+              <dx-text-box
+                placeholder="Write product name here..."
+                [showClearButton]="true"
+                stylingMode="underlined"
+                formControlName="description"
+              ></dx-text-box>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="typeForm[item] == 'checkbox'">
+          <!-- isActive field -->
+          <div class="dx-field">
+            <div class="dx-field-label">Is Active?</div>
+            <div class="dx-field-value-static">
+              <dx-check-box
+                [value]="true"
+                formControlName="isActive"
+              ></dx-check-box>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- save button -->
+    <div class="dx-field-btn">
+      <div class="dx-field-value dx-buttons">
+        <dx-button
+        type="default"
+        text="Save"
+        stylingMode="text"
+        ></dx-button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="dx-field">
+  <div class="dx-label">JSON:</div>
+  <div class="dx-field-value-static">
+    <span>{{ productForm.value | json }}</span>
+  </div>
+  
+</div>
+
