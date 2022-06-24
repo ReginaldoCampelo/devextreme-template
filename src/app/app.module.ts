@@ -39,6 +39,8 @@ import { NewCustomerComponent } from './pages/new-customer/new-customer.componen
 import { OrderComponent } from './pages/order/order.component';
 import { NewProductComponent } from './pages/new-product/new-product.component';
 import { NewProductV2Component } from './pages/new-product-v2/new-product-v2.component';
+import { LocaleComponent } from './pages/locale/locale.component';
+import { LocaleService } from './pages/locale/shared/services/locale.service';
 
 
 const ANGULAR_IMPORTS = [
@@ -85,7 +87,8 @@ const DEV_EXTREME_IMPORTS = [
     NewCustomerComponent,
     OrderComponent,
     NewProductComponent,
-    NewProductV2Component
+    NewProductV2Component,
+    LocaleComponent
   ],
   imports: [
     DEV_EXTREME_IMPORTS,
@@ -105,7 +108,8 @@ const DEV_EXTREME_IMPORTS = [
   providers: [
     AuthService,
     ScreenService,
-    AppInfoService
+    AppInfoService,
+    LocaleService
   ],
   bootstrap: [AppComponent]
 })

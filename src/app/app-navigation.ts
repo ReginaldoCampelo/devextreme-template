@@ -39,6 +39,10 @@ export const navigation = [
       {
         text: 'Product v2',
         path: '/product-v2'
+      },
+      {
+        text: 'Locale',
+        path: '/locale'
       }
     ]
   }

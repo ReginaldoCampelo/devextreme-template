@@ -11,15 +11,17 @@ export class ApiService extends BaseService {
   }
 
   public get<T>(url: string) {
+    console.log(this.SetHeaderJson);
     return this.http.get<T>(url, this.SetHeaderJson());
+    
   }
 
   public post<T>(url: string, body?: any) {
     let options = {
       headers: this.SetHeaderJson(),
     };
-
-    return this.http.post<T>(url, body);
+    console.log(this.SetHeaderJson);
+    return this.http.post<T>(url, body, options.headers);
   }
 
   public put<T>(url: string, body?: any) {
@@ -27,13 +29,13 @@ export class ApiService extends BaseService {
       headers: this.SetHeaderJson(),
     };
 
-    return this.http.put<T>(url, body);
+    return this.http.put<T>(url, body, options.headers);
   }
   public delete(url: string) {
     let options = {
       headers: this.SetHeaderJson(),
     };
 
-    return this.http.delete(url);
+    return this.http.delete(url, options.headers);
   }
 }
