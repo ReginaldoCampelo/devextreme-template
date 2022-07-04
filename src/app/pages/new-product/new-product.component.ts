@@ -1,13 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
 import notify from 'devextreme/ui/notify';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { Change } from '../order/shared/models/change';
 import { Product } from './shared/models/product';
 import { ApiService } from './shared/services/api.service';
 import { ProductService } from './shared/services/product.service';
+
+const sendRequest = function (value) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(value);
+    }, 1000);
+  });
+};
 
 @Component({
   selector: 'app-new-product',
@@ -16,6 +24,8 @@ import { ProductService } from './shared/services/product.service';
   providers: [ProductService]
 })
 export class NewProductComponent implements OnInit {
+
+  namePattern: any = /^[^0-9]+$/;
 
   products: any;
 
@@ -121,6 +131,10 @@ export class NewProductComponent implements OnInit {
 
   getProducts(): Observable<Product[]> {
     return this.apiService.get<any>(`${environment.baseUrl}/product/find/all`);
+  }
+
+  asyncValidation(params) {
+    return sendRequest(params.value);
   }
 
   showMessageSuccess(msg) {

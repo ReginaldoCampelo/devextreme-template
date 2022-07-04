@@ -36,7 +36,11 @@
   dataField="description"
   caption="Description"
   dataType="string">
-  <dxi-validation-rule type="required"></dxi-validation-rule>
+  <dxi-validation-rule type="required" message="Name is required"></dxi-validation-rule>
+  <dxi-validation-rule type="stringLength" [min]="3" message="Name must have at least 3 caracters"></dxi-validation-rule>
+  <dxi-validation-rule type="pattern" [pattern]="namePattern" message="Do not use digits in the Name"></dxi-validation-rule>
+  <dxi-validation-rule type="async" message="Email is already registered" [validationCallback]="asyncValidation"
+            ></dxi-validation-rule>
 </dxi-column>
 
   <dxi-column
