@@ -11,8 +11,7 @@
   [showBorders]="true"
   [repaintChangesOnly]="true"
   (onSaving)="onSaving($event)"
->
-  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+><dxo-scrolling rowRenderingMode="virtual"></dxo-scrolling>
 
   <!--Editing | possible modes: row | cell | batch | popup -->
   <dxo-editing
@@ -37,12 +36,12 @@
   dataField="description"
   caption="Description"
   dataType="string"
-  >
-  </dxi-column>
+  ></dxi-column>
 
   <dxi-column
     dataField="isActive"
     caption="Status"
+    [allowEditing]="false"
     [width]="150"
     dataType="boolean"
   ></dxi-column>

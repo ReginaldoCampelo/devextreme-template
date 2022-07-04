@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // devextreme imports
-import { DxButtonModule, DxLoadPanelModule, DxPopupModule, DxValidationSummaryModule, DxValidatorModule } from 'devextreme-angular';
+import { DxButtonModule, DxLoadPanelModule, DxPopupModule, DxTextBoxModule, DxValidationSummaryModule, DxValidatorModule } from 'devextreme-angular';
 import { DxLookupModule } from 'devextreme-angular';
 import { DxTemplateModule } from 'devextreme-angular';
 import { DxSpeedDialActionModule } from 'devextreme-angular';
@@ -76,7 +76,8 @@ const DEV_EXTREME_IMPORTS = [
   DxLoadPanelModule,
   DxPopupModule ,
   DxValidatorModule,
-  DxValidationSummaryModule
+  DxValidationSummaryModule,
+  DxTextBoxModule
 ];
 
 @NgModule({

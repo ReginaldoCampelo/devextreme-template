@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { Product } from '../new-product/shared/models/product';
 import { ApiService } from '../new-product/shared/services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import notify from 'devextreme/ui/notify';
 
 export const directions: any = {
   auto: {
@@ -46,6 +47,15 @@ export const directions: any = {
   },
 };
 
+const sendRequest = function (value) {
+  const validEmail = 'testValidation';
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(value === validEmail);
+    }, 1000);
+  });
+};
+
 @Component({
   selector: 'app-new-product-v2',
   templateUrl: './new-product-v2.component.html',
@@ -53,6 +63,22 @@ export const directions: any = {
 })
 export class NewProductV2Component implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) grid: DxDataGridComponent;
+
+  password = '';
+
+  maxDate: Date = new Date();
+
+  cityPattern = '^[^0-9]+$';
+
+  namePattern: any = /^[^0-9]+$/;
+
+  phonePattern: any = /^[02-9]\d{9}$/;
+
+  countries: string[];
+
+  phoneRules: any = {
+    X: /[02-9]/,
+  };
 
   productForm: FormGroup;
 
@@ -71,6 +97,28 @@ export class NewProductV2Component implements OnInit {
       this.directions = directions;
     });
   }
+
+  passwordComparison = () => this.password;
+
+  checkComparison() {
+    return true;
+  }
+
+  asyncValidation(params) {
+    return sendRequest(params.value);
+  }
+
+  onFormSubmit = function (e) {
+    notify({
+      message: 'You have submitted the form',
+      position: {
+        my: 'center top',
+        at: 'center top',
+      },
+    }, 'success', 3000);
+
+    e.preventDefault();
+  };
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
