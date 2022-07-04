@@ -1,3 +1,5 @@
+@import "../../../themes/generated/variables.base.scss";
+
 ::ng-deep #gridContainer {
     height: 100%;
   }
@@ -28,3 +30,11 @@
     font-weight: bold;
   }
   
+  ::ng-deep .dx-button-content {
+    i.dx-icon.dx-icon-edit-button-addrow::before {
+      display: flex;
+      justify-content: center;
+      font-size: 30px;
+      color: $base-accent;
+    }
+  }
